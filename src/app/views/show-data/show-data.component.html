@@ -1,0 +1,56 @@
+<div class="row">
+
+  <div class="container">
+    <div class="col-12">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" *ngFor="let subject of subjects; let i = index">
+          <a class="nav-link" [ngClass] = "i==0 ? 'active': ''" id="{{subject.name}}-tab" data-toggle="tab" href="#{{subject.name}}"
+             role="tab" attr.aria-controls="{{subject.name}}" aria-selected="true" (click)="clearSearch(subject.name)">{{subject.name}}</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <ng-container *ngFor="let subject of subjects; let i = index">
+          <div class="tab-pane fade" [ngClass] = "i==0 ? 'show active': ''"  id="{{subject.name}}" role="tabpanel" attr.aria-labelledby="{{subject.name}}-tab">
+
+            <div class="row">
+              <div class="col-3">
+                <input type="text" name="search" class="form-control" placeholder="Search chapters or topics" [(ngModel)]="searchFilter" />
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-3" *ngFor="let chapter of subject.chapters | chapterFilter: searchFilter">
+                <div class="card">
+                  <div class="card-header">
+                    {{chapter.name}}
+                  </div>
+                  <div class="card-body">
+                    <ul>
+                      <li *ngFor="let topic of chapter.topics">
+                        {{topic}}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-12" *ngIf="(subject.chapters | chapterFilter: searchFilter).length == 0">
+                <p class="not-found">We couldn't find any results for <span class="search-term">{{searchFilter}}</span></p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+</div>

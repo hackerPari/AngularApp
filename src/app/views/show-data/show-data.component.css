@@ -1,0 +1,35 @@
+
+.row {
+  margin-top: 2%;
+}
+
+.card {
+  width: 220px;
+  height: 180px;
+}
+
+.card .card-body {
+  overflow-y: scroll;
+}
+
+.card .card-header {
+  padding: 5px;
+  text-align: center;
+}
+
+.card-body ul {
+  padding-left: 15px;
+}
+
+.col-3 {
+  margin-top: 2%;
+}
+
+.not-found {
+  font-size: 14px;
+}
+
+.search-term {
+  font-size: 14px;
+  font-weight: bold;
+}
