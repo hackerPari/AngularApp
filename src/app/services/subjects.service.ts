@@ -8,6 +8,9 @@ export class SubjectsService {
   constructor() { }
 
   getSubjectData () {
+
+    // Subject data provided in the problem statement
+
     const subjectData = [{
         'name': 'Mathematics',
         'chapters': [

@@ -17,11 +17,18 @@ export class ShowDataComponent implements OnInit {
 
   ngOnInit() {
 
+    // Gets data from subjectService
     this.subjects = this.subjectService.getSubjectData();
+
+    // Initializes the search filter
     this.searchFilter = '';
+
+    // Sets the current tab
     this.currentTab = this.subjects[0].name;
   }
 
+
+  // Following method is used to clear the search term whenever user switched the tab
   clearSearch(tab) {
     if (tab !== this.currentTab) {
       this.searchFilter = '';
