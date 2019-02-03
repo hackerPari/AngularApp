@@ -8,6 +8,10 @@
             <p *ngFor="let battle of currentBattles" class="battle" (click)="getBattleDetails(battle)">
               {{battle.id}} | {{battle.name}}
             </p>
+
+            <p *ngIf="currentBattles.length == 0">
+              No battles here.
+            </p>
           </div>
 
           <div class="col-12">
