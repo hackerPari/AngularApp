@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SubjectsService} from '../../services/subjects.service';
 
 @Component({
   selector: 'app-show-data',
@@ -9,31 +8,44 @@ import {SubjectsService} from '../../services/subjects.service';
 })
 export class ShowDataComponent implements OnInit {
 
-  subjects: any;
-  searchFilter: any;
-  currentTab: any;
+  currentBattles: any;
+  currentPage: any;
+  battleDetails: any;
 
-  constructor(private http: HttpClient, private subjectService: SubjectsService) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-
-    // Gets data from subjectService
-    this.subjects = this.subjectService.getSubjectData();
-
-    // Initializes the search filter
-    this.searchFilter = '';
-
-    // Sets the current tab
-    this.currentTab = this.subjects[0].name;
+    this.currentPage = 1;
+    this.listBattles();
   }
 
 
-  // Following method is used to clear the search term whenever user switched the tab
-  clearSearch(tab) {
-    if (tab !== this.currentTab) {
-      this.searchFilter = '';
-      this.currentTab = tab;
-    }
+  listBattles() {
+    this.http.get('/battles/', {params: {
+        page: this.currentPage
+      }}).subscribe(data => {
+      console.log(data);
+      this.currentBattles = data;
+    });
+  }
+
+  getBattleDetails(battle) {
+    this.http.get('/battleDetails/', {params: {
+        id: battle.id
+      }}).subscribe(data => {
+      console.log(data);
+      this.battleDetails = data;
+    });
+  }
+
+  previousPage() {
+    this.currentPage -= 1;
+    this.listBattles();
+  }
+
+  nextPage() {
+    this.currentPage += 1;
+    this.listBattles();
   }
 
 }

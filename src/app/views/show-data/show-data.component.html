@@ -1,55 +1,42 @@
 <div class="row">
 
   <div class="container">
-    <div class="col-12">
-
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" *ngFor="let subject of subjects; let i = index">
-          <a class="nav-link" [ngClass] = "i==0 ? 'active': ''" id="{{subject.name}}-tab" data-toggle="tab" href="#{{subject.name}}"
-             role="tab" attr.aria-controls="{{subject.name}}" aria-selected="true" (click)="clearSearch(subject.name)">{{subject.name}}</a>
-        </li>
-      </ul>
-
-      <div class="tab-content" id="myTabContent">
-        <ng-container *ngFor="let subject of subjects; let i = index">
-          <div class="tab-pane fade" [ngClass] = "i==0 ? 'show active': ''"  id="{{subject.name}}" role="tabpanel" attr.aria-labelledby="{{subject.name}}-tab">
-
-            <div class="row">
-              <div class="col-3">
-                <input type="text" name="search" class="form-control" placeholder="Search chapters or topics" [(ngModel)]="searchFilter" />
-              </div>
-
-            </div>
-
-            <div class="row">
-
-              <div class="col-3" *ngFor="let chapter of subject.chapters | chapterFilter: searchFilter">
-                <div class="card">
-                  <div class="card-header">
-                    {{chapter.name}}
-                  </div>
-                  <div class="card-body">
-                    <ul>
-                      <li *ngFor="let topic of chapter.topics">
-                        {{topic}}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-12" *ngIf="(subject.chapters | chapterFilter: searchFilter).length == 0">
-                <p class="not-found">We couldn't find any results for <span class="search-term">{{searchFilter}}</span></p>
-              </div>
-
-            </div>
-
+    <div class="row">
+      <div class="col-12">
+        <div class="col-md-6">
+          <div class="col-12">
+            <p *ngFor="let battle of currentBattles" class="battle" (click)="getBattleDetails(battle)">
+              {{battle.id}} | {{battle.name}}
+            </p>
           </div>
 
-        </ng-container>
-      </div>
+          <div class="col-12">
+            <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage==1">
+              Previous
+            </button>
+            <span class="page">{{currentPage}}</span>
+            <button class="btn btn-primary" (click)="nextPage()">
+              Next
+            </button>
+          </div>
+        </div>
 
+        <div class="col-md-6" *ngIf="battleDetails">
+          <p> <span class="bold">Battle No:</span> {{battleDetails.id}}</p>
+          <p> <span class="bold">Battle Name:</span> {{battleDetails.name}}</p>
+          <p> <span class="bold">Battle Year:</span> {{battleDetails.year}}</p>
+          <p> <span class="bold">Attacker King:</span> {{battleDetails.attacker_king}}</p>
+          <p> <span class="bold">Defender King:</span> {{battleDetails.defender_king}}</p>
+          <p> <span class="bold">Attacker Outcome:</span> {{battleDetails.attacker_outcome}}</p>
+          <p> <span class="bold">Battle Type:</span> {{battleDetails.battle_type}}</p>
+          <p> <span class="bold">Attacker Size:</span> {{battleDetails.attacker_size}}</p>
+          <p> <span class="bold">Defender Size:</span> {{battleDetails.defender_size}}</p>
+          <p> <span class="bold">Attacker Commander:</span> {{battleDetails.attacker_commander}}</p>
+          <p> <span class="bold">Defender Commander:</span> {{battleDetails.defender_commander}}</p>
+          <p> <span class="bold">Location:</span> {{battleDetails.location}}</p>
+          <p> <span class="bold">Region:</span> {{battleDetails.region}}</p>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -3,33 +3,18 @@
   margin-top: 2%;
 }
 
-.card {
-  width: 220px;
-  height: 180px;
+.battle {
+  cursor: pointer;
 }
 
-.card .card-body {
-  overflow-y: scroll;
+.battle:hover {
+  color: blue;
 }
 
-.card .card-header {
-  padding: 5px;
-  text-align: center;
-}
-
-.card-body ul {
-  padding-left: 15px;
-}
-
-.col-3 {
-  margin-top: 2%;
-}
-
-.not-found {
-  font-size: 14px;
-}
-
-.search-term {
-  font-size: 14px;
+.bold {
   font-weight: bold;
+}
+
+.page {
+  padding: 1%;
 }

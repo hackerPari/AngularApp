@@ -6,13 +6,11 @@ import { AppComponent } from './app.component';
 import { ShowDataComponent } from './views/show-data/show-data.component';
 
 import { FormsModule } from '@angular/forms';
-import { ChapterFilterPipe } from './pipes/chapter-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShowDataComponent,
-    ChapterFilterPipe
+    ShowDataComponent
   ],
   imports: [
     HttpClientModule,
