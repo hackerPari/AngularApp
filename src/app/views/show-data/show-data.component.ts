@@ -11,6 +11,11 @@ export class ShowDataComponent implements OnInit {
   currentBattles: any;
   currentPage: any;
   battleDetails: any;
+  searchTerm = '';
+  battleTypeCount: any;
+  attackerKingAggregate: any;
+  defenderKingAggregate: any;
+  minMaxAvgDefenderAggregate: any;
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +27,8 @@ export class ShowDataComponent implements OnInit {
 
   listBattles() {
     this.http.get('/battles/', {params: {
-        page: this.currentPage
+        page: this.currentPage,
+        searchTerm: this.searchTerm
       }}).subscribe(data => {
       console.log(data);
       this.currentBattles = data;
@@ -38,6 +44,30 @@ export class ShowDataComponent implements OnInit {
     });
   }
 
+  getAttackerKingAggregate() {
+    this.http.get('/attackerKingAggregate/').subscribe(data => {
+      this.attackerKingAggregate = data;
+    });
+  }
+
+  getDefenderKingAggregate() {
+    this.http.get('/defenderKingAggregate/').subscribe(data => {
+      this.defenderKingAggregate = data;
+    });
+  }
+
+  getBattleTypeAggregate() {
+    this.http.get('/battleTypeAggregate/').subscribe(data => {
+      this.battleTypeCount = data;
+    });
+  }
+
+  getMinMaxAvgDefenderSize() {
+    this.http.get('/minMaxAvgDefenderSize/').subscribe(data => {
+      this.minMaxAvgDefenderAggregate =  data;
+    });
+  }
+
   previousPage() {
     this.currentPage -= 1;
     this.listBattles();
@@ -45,6 +75,11 @@ export class ShowDataComponent implements OnInit {
 
   nextPage() {
     this.currentPage += 1;
+    this.listBattles();
+  }
+
+  searchBattles() {
+    this.currentPage = 1;
     this.listBattles();
   }
 

@@ -3,7 +3,13 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="col-md-6">
+
+        <div class="col search-container">
+          <input class="form-control" type="text" placeholder="search for battle name here" [(ngModel)]="searchTerm">
+          <button class="btn btn-success" (click)="searchBattles()">Search</button>
+        </div>
+
+        <div class="col-md-4">
           <div class="col-12">
             <p *ngFor="let battle of currentBattles" class="battle" (click)="getBattleDetails(battle)">
               {{battle.id}} | {{battle.name}}
@@ -25,20 +31,67 @@
           </div>
         </div>
 
-        <div class="col-md-6" *ngIf="battleDetails">
-          <p> <span class="bold">Battle No:</span> {{battleDetails.id}}</p>
-          <p> <span class="bold">Battle Name:</span> {{battleDetails.name}}</p>
-          <p> <span class="bold">Battle Year:</span> {{battleDetails.year}}</p>
-          <p> <span class="bold">Attacker King:</span> {{battleDetails.attacker_king}}</p>
-          <p> <span class="bold">Defender King:</span> {{battleDetails.defender_king}}</p>
-          <p> <span class="bold">Attacker Outcome:</span> {{battleDetails.attacker_outcome}}</p>
-          <p> <span class="bold">Battle Type:</span> {{battleDetails.battle_type}}</p>
-          <p> <span class="bold">Attacker Size:</span> {{battleDetails.attacker_size}}</p>
-          <p> <span class="bold">Defender Size:</span> {{battleDetails.defender_size}}</p>
-          <p> <span class="bold">Attacker Commander:</span> {{battleDetails.attacker_commander}}</p>
-          <p> <span class="bold">Defender Commander:</span> {{battleDetails.defender_commander}}</p>
-          <p> <span class="bold">Location:</span> {{battleDetails.location}}</p>
-          <p> <span class="bold">Region:</span> {{battleDetails.region}}</p>
+        <div class="col-md-4">
+
+          <div *ngIf="!battleDetails">Click on A battle to view Details</div>
+
+          <div class="col-md-12" *ngIf="battleDetails">
+            <p> <span class="bold">Battle No:</span> {{battleDetails.id}}</p>
+            <p> <span class="bold">Battle Name:</span> {{battleDetails.name}}</p>
+            <p> <span class="bold">Battle Year:</span> {{battleDetails.year}}</p>
+            <p> <span class="bold">Attacker King:</span> {{battleDetails.attacker_king}}</p>
+            <p> <span class="bold">Defender King:</span> {{battleDetails.defender_king}}</p>
+            <p> <span class="bold">Attacker Outcome:</span> {{battleDetails.attacker_outcome}}</p>
+            <p> <span class="bold">Battle Type:</span> {{battleDetails.battle_type}}</p>
+            <p> <span class="bold">Attacker Size:</span> {{battleDetails.attacker_size}}</p>
+            <p> <span class="bold">Defender Size:</span> {{battleDetails.defender_size}}</p>
+            <p> <span class="bold">Attacker Commander:</span> {{battleDetails.attacker_commander}}</p>
+            <p> <span class="bold">Defender Commander:</span> {{battleDetails.defender_commander}}</p>
+            <p> <span class="bold">Location:</span> {{battleDetails.location}}</p>
+            <p> <span class="bold">Region:</span> {{battleDetails.region}}</p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="row">
+            <h5 class="col-md-12">Aggregate</h5>
+            <div class="col-md-12">
+              <a (click)="getBattleTypeAggregate()" style="cursor: pointer">Get Count of battles per battle type</a>
+              <ng-container *ngFor="let battleType of battleTypeCount">
+                <div>
+                  {{battleType.battle_type}} : {{battleType.battle_type_count}}
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="col-md-12">
+              <a (click)="getAttackerKingAggregate()" style="cursor: pointer"> Most active Attacker King</a>
+              <ng-container *ngFor="let king of attackerKingAggregate">
+                <div>
+                  {{king.attacker_king}} : {{king.battle_count}}
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="col-md-12">
+              <a (click)="getDefenderKingAggregate()" style="cursor: pointer"> Most active Defender King </a>
+              <ng-container *ngFor="let king of defenderKingAggregate">
+                <div>
+                  {{king.defender_king}} : {{king.battle_count}}
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="col-md-12">
+              <a (click)="getMinMaxAvgDefenderSize()" style="cursor: pointer">Min, Max, Average defender size</a>
+              <div *ngIf="minMaxAvgDefenderAggregate">
+                Min: {{minMaxAvgDefenderAggregate.defender_size__min}} <br>
+                Max: {{minMaxAvgDefenderAggregate.defender_size__max}} <br>
+                Average: {{minMaxAvgDefenderAggregate.defender_size__avg}} <br>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

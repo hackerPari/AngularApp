@@ -18,3 +18,18 @@
 .page {
   padding: 1%;
 }
+
+.search-container {
+  width: 35%;
+  margin-bottom: 20px;
+}
+
+.search-container input{
+  width: 60%;
+  display: inline;
+}
+
+.search-container button{
+  width: 20%;
+  margin-left: 10px;
+}
